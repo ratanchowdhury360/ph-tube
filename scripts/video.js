@@ -38,9 +38,12 @@ const displayVideos = (videos) =>{
       src=${video.thumbnail}
       class="h-full w-full object-cover"
       alt="Shoes" />
-      <span class="absolute  bottom-20 right-2 bg-black text-white  rounded p-1">${
+      ${
+        video.others.posted_date?.length ==0 ? "" : ` <span class="absolute  bottom-20 right-2 bg-black text-white  rounded p-1">${
         video.others.posted_date
-      }</span>
+      }</span>`
+      }
+     
   </figure>
   <div class="px-0 py-2 flex gap-3">
     <div>
