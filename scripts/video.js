@@ -1,4 +1,18 @@
 console.log("video script added");
+
+//time converter function
+function getTimeString(time) {
+    const hour = parseInt(time / 3600);
+    let remainingSecond = time % 3600;
+    const minute = parseInt(remainingSecond / 60);
+    remainingSecond = remainingSecond % 60;
+    const second = remainingSecond;
+    return `${hour} hour ${minute} min ${second} sec ago`;
+}
+
+
+
+
 //1 fetch,Load and show Chetagories on html
 
 //create loadCategories
@@ -40,7 +54,7 @@ const displayVideos = (videos) =>{
       alt="Shoes" />
       ${
         video.others.posted_date?.length ==0 ? "" : ` <span class="absolute  bottom-20 right-2 bg-black text-white  rounded p-1">${
-        video.others.posted_date
+       getTimeString(video.others.posted_date)
       }</span>`
       }
      
