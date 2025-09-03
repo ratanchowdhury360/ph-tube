@@ -49,6 +49,14 @@ const displayVideos = (videos) => {
   const videoContainer = document.getElementById("videos");
   videoContainer.innerHTML = "";
 
+  if (videos.length === 0) {
+    videoContainer.classList.remove("grid");
+    videoContainer.innerHTML = `<div class="min-h-[300px] flex flex-col gap-5 justify-center items-center"> <img src="assets/Icon.png" />
+     <h2 class="text-2xl font-bold">No videos found</h2>
+    </div>`;
+    return;
+  }
+
   videos.forEach(video => {
     console.log(video);
     //create a card for each video
