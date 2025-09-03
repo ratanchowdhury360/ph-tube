@@ -26,6 +26,13 @@ const loadCategories = () => {
     .catch((error) => console.log(error))
 };
 
+const removreActiveClass = () => {
+  const button = document.getElementsByClassName("category-btn");
+  for (const btn of button) {
+    btn.classList.remove("active"); //, "bg-red-500", "text-white");
+  }
+}
+
 
 const loadVideos = () => {
   // console.log("loadCategories is connected");
@@ -40,7 +47,16 @@ const loadCategoryVideos = (id) => {
   //alert(id);
   fetch(`https://openapi.programming-hero.com/api/phero-tube/category/${id}`)
     .then((res) => res.json())
-    .then((data) => displayVideos(data.category))
+    .then((data) => {
+
+      //remobe active class from all buttons
+      removreActiveClass();
+      //active class is added when a button is clicked
+
+      const activeBtn = document.getElementById(`btn-${id}`);
+      activeBtn.classList.add("active"); //, "bg-red-500", "text-white");
+      displayVideos(data.category)
+    })
     .catch((error) => console.log(error))
 }
 
@@ -54,8 +70,11 @@ const displayVideos = (videos) => {
     videoContainer.innerHTML = `<div class="min-h-[300px] flex flex-col gap-5 justify-center items-center"> <img src="assets/Icon.png" />
      <h2 class="text-2xl font-bold">No videos found</h2>
     </div>`;
-    return;
+
+  } else {
+    videoContainer.classList.add("grid");
   }
+
 
   videos.forEach(video => {
     console.log(video);
@@ -137,8 +156,8 @@ const displayCategories = (categories) => {
     //create a button for each category
     const buttonContainer = document.createElement("div");
     buttonContainer.innerHTML = `
-      <button onclick="loadCategoryVideos(${item.category_id})" class ="btn">
-      ${item.category}
+      <button id="btn-${item.category_id}" onclick="loadCategoryVideos(${item.category_id})" class ="btn category-btn">
+      ${item.category}  
       </button>
    `;
 
